@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أوائل الشهادة الإعدادية - إدارة سمسطا التعليمية</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Apply Cairo font to the body */
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+        /* Custom animation for cards */
+        .card-enter {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        /* Style for the rank badge */
+        .rank-badge {
+            background: linear-gradient(135deg, #60a5fa, #34d399); /* Default Blue-Green gradient */
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.5rem;
+            line-height: 1.2;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 3px solid white;
+        }
+        .rank-badge.gold {
+             background: linear-gradient(135deg, #FFD700, #FFA500); /* Gold gradient */
+        }
+        .rank-badge.silver {
+             background: linear-gradient(135deg, #c0c0c0, #a9a9a9); /* Silver gradient */
+        }
+        .rank-badge.bronze {
+            background: linear-gradient(135deg, #cd7f32, #a0522d); /* Bronze gradient */
+        }
+        .rank-badge .rank-text {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        .rank-badge .rank-extra {
+            font-size: 0.7rem;
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-500">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <!-- Header Section -->
+        <header class="text-center mb-10">
+            <div class="inline-block bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+                <h1 class="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-teal-400">
+                    لوحة شرف الأوائل
+                </h1>
+                <p class="text-lg md:text-xl mt-2 text-gray-600 dark:text-gray-400">الشهادة الإعدادية - إدارة سمسطا التعليمية</p>
+            </div>
+        </header>
+
+        <!-- Students Grid -->
+        <main id="students-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <!-- Student data will be dynamically inserted here -->
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-center mt-12 text-gray-500 dark:text-gray-400">
+            <p> الاستاذ محمود صديق تصميم وتطوير بواسطة </p>
+            <p>&copy; 2024 - جميع الحقوق محفوظة</p>
+        </footer>
+    </div>
+
+    <script>
+        // Student data based on the provided image, up to rank 10
+        const students = [
+            { name: "يمنى محمد عبد الحميد عبد العزيز", school: "الشهيد حسن عبد القوي بنات", score: 279.5 },
+            { name: "حسام نبيل علي عيد", school: "احمد زويل الرسمية لغات بسمسطا", score: 279 },
+            { name: "مارينا خيري سامي راغب", school: "التوفيق الخاصة ع م", score: 278.75 },
+            { name: "روان ربيع صالح عبد الغفار", school: "دشطوط الشرقية ع م", score: 278.75 },
+            { name: "محمود فتحي مصري", school: "السلام الخاصة ع م", score: 278.5 },
+            { name: "ملك معدن جمعه عبد الكريم", school: "مازورة ع بنات", score: 278.5 },
+            { name: "طارق توبا قيادي التل", school: "الأمير الذي السيد ابراهيم ع م", score: 278 },
+            { name: "علي وليد فهمي عبد الفعال", school: "سمسطا ع ج بنات", score: 278 },
+            { name: "عبد الرحمن أحمد الدارم", school: "سمسطا ع بنات", score: 278 },
+            { name: "سنه أحمد سعيد علي", school: "سمسطا ع بنات", score: 278 },
+            { name: "اسراء اهرام عبد اللطيف", school: "السلام الخاصة ع م", score: 278 },
+            { name: "مريم شناسي ابراهيم منا", school: "محمود فهمي ع بنات", score: 278 },
+            { name: "سجي عبد العظيم عبد العليم", school: "نزلة الديب ع م", score: 278 },
+            { name: "علي سعودي هاشم عمر", school: "سمسطا ع ج بنات", score: 277.75 },
+            { name: "سخت محمود عبد السلام جان", school: "ببا ع م بالعساكرة", score: 277.75 },
+            { name: "رضوى رامي رءوف سالم", school: "سمسطا ع ج بنات", score: 277.5 },
+            { name: "سارة محمد توفيق عبد اللطيف", school: "سمسطا ع ج بنات", score: 277.5 },
+            { name: "خديجة تمام ماهر فهمي", school: "السلام الخاصة ع م", score: 277.5 },
+            { name: "احمد صلاح عبد السيد", school: "الشهيد رمضان علي - بنين", score: 277.5 },
+            { name: "آلاء كمال مرزوق", school: "بدهل ع بنات", score: 277.5 },
+            { name: "محمد كامل يحيى كامل", school: "دشطوط ع الفن", score: 277.5 },
+            { name: "اسراء مسلم", school: "نزلة الديب ع م", score: 277.5 },
+            { name: "ابراهيم عوض", school: "سرورة ع بنين", score: 277.5 },
+            { name: "رغد رضا عرضه", school: "سرورة ع بنات", score: 277.5 },
+            { name: "رهف احمد رشدي فهمي", school: "سمسطا ع ج بنات", score: 277.25 },
+            { name: "منة الله خلف", school: "سمسطا ع بنات", score: 277.25 },
+            { name: "سما ملطوشي", school: "الشهيد حسين عبد القوي ع بنات", score: 277.25 },
+            { name: "جنى تامر عبده", school: "التوفيق الخاصة", score: 277.25 },
+            { name: "رغد خالد", school: "السلام الخاصة ع م", score: 277 },
+            { name: "كيرمينا ماهر مكرم خوري صليب", school: "بدهل ع بنات", score: 277 },
+            { name: "آلاء حسين ابراهيم حسين", school: "نزلة الديب ع م", score: 277 },
+            { name: "علي ياسر رشاد حسين", school: "دشطوط الشرقية ع م", score: 277 },
+            { name: "روان رءوف جماعة محمد", school: "مازورة ع بنات", score: 277 },
+            { name: "دنيا عماد كمال", school: "سمسطا ع ج بنات", score: 276.75 }
+        ];
+
+        // Function to get rank details (text and if it's repeated)
+        function getRank(scores, currentScore) {
+            const ranks = ["الأول", "الثاني", "الثالث", "الرابع", "الخامس", "السادس", "السابع", "الثامن", "التاسع", "العاشر"];
+            const uniqueScores = [...new Set(scores)].sort((a, b) => b - a);
+            const rankIndex = uniqueScores.indexOf(currentScore);
+            
+            // Check if this score is repeated in the original list
+            const isRepeated = scores.filter(score => score === currentScore).length > 1;
+
+            return {
+                rankText: ranks[rankIndex] || `الترتيب ${rankIndex + 1}`,
+                isRepeated: isRepeated,
+                rankIndex: rankIndex
+            };
+        }
+
+        const studentScores = students.map(s => s.score);
+        const grid = document.getElementById('students-grid');
+        const displayedScores = {}; // To track scores already displayed to handle "مكرر"
+
+        students.forEach((student, index) => {
+            const rankDetails = getRank(studentScores, student.score);
+
+            // Stop if rank is beyond 10
+            if(rankDetails.rankIndex >= 10) return;
+
+            // Determine badge color
+            let badgeColorClass = '';
+            if (rankDetails.rankIndex === 0) badgeColorClass = 'gold';
+            else if (rankDetails.rankIndex === 1) badgeColorClass = 'silver';
+            else if (rankDetails.rankIndex === 2) badgeColorClass = 'bronze';
+
+            // Check if this is a repeated rank to add "مكرر" text
+            let isRepeatedText = '';
+            if (rankDetails.isRepeated) {
+                if(displayedScores[student.score]) {
+                    isRepeatedText = '<span class="rank-extra">مكرر</span>';
+                }
+                displayedScores[student.score] = true; // Mark this score as displayed
+            }
+
+
+            // Create the student card
+            const card = document.createElement('div');
+            card.className = 'card-enter bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transform hover:-translate-y-2 transition-all duration-300 ease-in-out';
+            card.style.transitionDelay = `${index * 50}ms`;
+
+            card.innerHTML = `
+                <div class="p-6 flex items-center space-x-reverse space-x-4">
+                    <!-- Rank Badge -->
+                    <div class="flex-shrink-0">
+                        <div class="rank-badge ${badgeColorClass}">
+                            <span class="rank-text">${rankDetails.rankText}</span>
+                            ${isRepeatedText}
+                        </div>
+                    </div>
+                    
+                    <!-- Student Info -->
+                    <div class="flex-1 min-w-0">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white truncate" title="${student.name}">${student.name}</h3>
+                        <p class="text-gray-500 dark:text-gray-400 mt-1 truncate" title="${student.school}">${student.school}</p>
+                        <div class="mt-3 text-lg font-semibold text-teal-500 dark:text-teal-400">
+                           المجموع: ${student.score}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            grid.appendChild(card);
+        });
+        
+        // Trigger the entrance animation
+        window.addEventListener('load', () => {
+            const cards = document.querySelectorAll('.card-enter');
+            cards.forEach(card => {
+                card.style.opacity = 1;
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
